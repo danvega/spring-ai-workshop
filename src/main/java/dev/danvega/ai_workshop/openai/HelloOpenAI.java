@@ -9,7 +9,6 @@ import java.net.http.HttpResponse;
 public class HelloOpenAI {
 
     public void call() throws IOException, InterruptedException {
-        //var apiKey = "YOUR_API_KEY_HERE";
         var apiKey = System.getenv("OPENAI_API_KEY");
         var body = """
                 {
