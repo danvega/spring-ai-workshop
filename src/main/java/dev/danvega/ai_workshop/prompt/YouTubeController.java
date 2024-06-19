@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/youtube")
-public class YouTube {
+public class YouTubeController {
 
     private final ChatClient chatClient;
     @Value("classpath:/prompts/youtube.st")
     private Resource ytPromptResource;
 
-    public YouTube(ChatClient.Builder builder) {
+    public YouTubeController(ChatClient.Builder builder) {
         this.chatClient = builder.build();
     }
 
@@ -27,18 +27,12 @@ public class YouTube {
             the answer , just say "I don't know".
             """;
 
-        return chatClient.prompt()
-                .user(u -> u.text(message).param("genre",genre))
-                .call()
-                .content();
+        return null;
     }
 
     @GetMapping("/popular-resource")
     public String findPopularYouTubers(@RequestParam(value = "genre", defaultValue = "tech") String genre) {
-        return chatClient.prompt()
-                .user(u -> u.text(ytPromptResource).param("genre",genre))
-                .call()
-                .content();
+        return null;
     }
 
 }

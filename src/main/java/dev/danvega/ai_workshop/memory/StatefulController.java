@@ -10,20 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StatefulController {
 
-    private final ChatClient chatClient;
 
-    public StatefulController(ChatClient.Builder builder) {
-        this.chatClient = builder
-                .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
-                .build();
-    }
-
-    @GetMapping("/chat")
-    public String home(@RequestParam String message) {
-        return chatClient.prompt()
-                .user(message)
-                .call()
-                .content();
-    }
 
 }
