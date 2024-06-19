@@ -34,14 +34,7 @@ public class Olympics {
             @RequestParam(value = "stuffit", defaultValue = "false") boolean stuffit
     ) throws IOException {
         String sports = docsToStuffResource.getContentAsString(Charset.defaultCharset());
-        log.info("Sports: {}", sports);
-        return chatClient.prompt()
-                .user(u -> {
-                    u.text(olympicSportsResource);
-                    u.param("question",message);
-                    u.param("context", stuffit ? sports : "");
-                })
-                .call()
-                .content();
+
+        return null;
     }
 }

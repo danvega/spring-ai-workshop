@@ -27,18 +27,12 @@ public class YouTube {
             the answer , just say "I don't know".
             """;
 
-        return chatClient.prompt()
-                .user(u -> u.text(message).param("genre",genre))
-                .call()
-                .content();
+        return null;
     }
 
     @GetMapping("/popular-resource")
     public String findPopularYouTubers(@RequestParam(value = "genre", defaultValue = "tech") String genre) {
-        return chatClient.prompt()
-                .user(u -> u.text(ytPromptResource).param("genre",genre))
-                .call()
-                .content();
+        return null;
     }
 
 }
