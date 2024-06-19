@@ -20,7 +20,7 @@ public class FaqController {
     }
 
     @GetMapping("/faq")
-    public String faq(@RequestParam(value = "message", defaultValue = "How many athletes compete in the Olympic Games Paris 2024") String message) {
+    public String faq(@RequestParam(value = "message", defaultValue = "How many athletes will compete in the Olympic Games Paris 2024") String message) {
         return chatClient.prompt()
                 .user(message)
                 .call()
