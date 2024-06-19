@@ -9,8 +9,8 @@ import java.net.http.HttpResponse;
 public class HelloOpenAI {
 
     public void call() throws IOException, InterruptedException {
-        var apiKey = "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";
-        //var apiKey = System.getenv("OPENAI_API_KEY");
+        //var apiKey = "YOUR_API_KEY_HERE";
+        var apiKey = System.getenv("OPENAI_API_KEY");
         var body = """
                 {
                     "model": "gpt-4o",
