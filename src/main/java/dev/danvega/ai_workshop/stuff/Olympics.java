@@ -25,7 +25,8 @@ public class Olympics {
     private Resource olympicSportsResource;
 
     public Olympics(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
+        this.chatClient = builder
+                .build();
     }
 
     @GetMapping("/2024")
@@ -34,6 +35,12 @@ public class Olympics {
             @RequestParam(value = "stuffit", defaultValue = "false") boolean stuffit
     ) throws IOException {
         String sports = docsToStuffResource.getContentAsString(Charset.defaultCharset());
-        return null;
+        return chatClient.prompt()
+                .user(u -> u
+                        .text(olympicSportsResource)
+                        .param("question", message)
+                        .param("context", stuffit ? sports : "" ))
+                .call()
+                .content();
     }
 }

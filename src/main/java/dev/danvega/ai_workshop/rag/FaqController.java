@@ -11,6 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FaqController {
 
+    private final ChatClient chatClient;
 
+    public FaqController(ChatClient.Builder builder, VectorStore vectorStore) {
+        this.chatClient = builder
+                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore,SearchRequest.defaults()))
+                .build();
+    }
 
+    @GetMapping("/faq")
+    public String faq() {
+        return chatClient.prompt()
+                .user("How many athletes will compete in the Olympic Games in Paris in 2024")
+                .call()
+                .content();
+    }
 }

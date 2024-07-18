@@ -23,10 +23,10 @@ public class ImageDetection {
     @GetMapping("/image-to-text")
     public String image() throws IOException {
         return chatClient.prompt()
-                .user(u -> u
-                        .text("Can you please explain what you see in the following image?")
-                        .media(MimeTypeUtils.IMAGE_JPEG,sampleImage)
-                )
+                .user(u -> {
+                    u.text("Can you please explain what you see in the following image")
+                            .media(MimeTypeUtils.IMAGE_JPEG,sampleImage);
+                })
                 .call()
                 .content();
     }
