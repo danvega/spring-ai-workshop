@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.multimodal;
+package dev.danvega.workshop.multimodal;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;

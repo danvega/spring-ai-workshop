@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.openai;
+package dev.danvega.workshop.openai;
 
 import java.io.IOException;
 import java.net.URI;

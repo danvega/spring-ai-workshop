@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop;
+package dev.danvega.workshop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

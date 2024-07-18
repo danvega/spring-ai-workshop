@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.simple;
+package dev.danvega.workshop.simple;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +31,7 @@ public class StreamController {
     @GetMapping("/stream")
     public Flux<String> stream(@RequestParam(
             value = "message",
-            defaultValue = "I'm visiting Toronto this week, what are 10 places I must visit?") String message) {
+            defaultValue = "I'm visiting Hilton Head this week, what are 10 places I must visit?") String message) {
         return chatClient.prompt()
                 .user(message)
                 .stream()

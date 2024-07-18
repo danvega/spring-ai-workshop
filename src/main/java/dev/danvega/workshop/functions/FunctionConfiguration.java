@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.functions;
+package dev.danvega.workshop.functions;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

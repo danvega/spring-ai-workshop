@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.rag;
+package dev.danvega.workshop.rag;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;

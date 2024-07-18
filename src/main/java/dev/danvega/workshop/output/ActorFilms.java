@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.output;
+package dev.danvega.workshop.output;
 
 import java.util.List;
 

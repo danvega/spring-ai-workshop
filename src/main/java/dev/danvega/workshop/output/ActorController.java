@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.output;
+package dev.danvega.workshop.output;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.core.ParameterizedTypeReference;

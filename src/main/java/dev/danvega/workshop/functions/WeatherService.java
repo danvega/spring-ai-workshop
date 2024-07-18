@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.functions;
+package dev.danvega.workshop.functions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

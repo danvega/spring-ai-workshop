@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.simple;
+package dev.danvega.workshop.simple;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -22,7 +22,7 @@ public class ChatController {
      * @return
      */
     @GetMapping("/")
-    public String joke(@RequestParam(value = "message", defaultValue = "Tell me a dad joke about Banks") String message) {
+    public String joke(@RequestParam(value = "message", defaultValue = "Tell me a dad joke about Dogs") String message) {
         return chatClient.prompt()
                 .user(message)
                 .call()

@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.functions;
+package dev.danvega.workshop.functions;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;

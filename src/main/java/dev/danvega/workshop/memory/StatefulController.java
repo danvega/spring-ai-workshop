@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.memory;
+package dev.danvega.workshop.memory;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;

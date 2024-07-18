@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.functions;
+package dev.danvega.workshop.functions;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

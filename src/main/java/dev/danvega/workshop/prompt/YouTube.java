@@ -1,4 +1,4 @@
-package dev.danvega.ai_workshop.prompt;
+package dev.danvega.workshop.prompt;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Value;
