@@ -19,7 +19,7 @@ public class StreamController {
     @GetMapping("/without-stream")
     public String withoutStream(@RequestParam(
             value = "message",
-            defaultValue = "I'm visiting Toronto this week, what are 10 places I must visit?") String message) {
+            defaultValue = "I'm visiting Dallas this week, what are 10 places I must visit?") String message) {
 
         return chatClient.prompt()
                 .user(message)
@@ -31,7 +31,7 @@ public class StreamController {
     @GetMapping("/stream")
     public Flux<String> stream(@RequestParam(
             value = "message",
-            defaultValue = "I'm visiting Hilton Head this week, what are 10 places I must visit?") String message) {
+            defaultValue = "I'm visiting Dallas this week, what are 10 places I must visit?") String message) {
         return chatClient.prompt()
                 .user(message)
                 .stream()
