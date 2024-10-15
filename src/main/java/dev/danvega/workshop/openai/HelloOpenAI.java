@@ -1,4 +1,4 @@
-package dev.danvega.workshop.openai;
+package dev.danvega;
 
 import java.io.IOException;
 import java.net.URI;
@@ -6,9 +6,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class HelloOpenAI {
+public class Application {
 
-    public void call() throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         var apiKey = System.getenv("OPENAI_API_KEY");
         var body = """
                 {
@@ -16,7 +16,7 @@ public class HelloOpenAI {
                     "messages": [
                         {
                             "role": "user",
-                            "content": "Tell me a good dad joke about Dogs"
+                            "content": "Tell me an interesting fact about the Spring Framework"
                         }
                     ]
                 }""";
@@ -32,5 +32,4 @@ public class HelloOpenAI {
         var response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
     }
-
 }
