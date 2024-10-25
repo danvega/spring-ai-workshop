@@ -1,4 +1,4 @@
-package dev.danvega;
+package dev.danvega.workshop.openai;
 
 import java.io.IOException;
 import java.net.URI;
@@ -6,7 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class Application {
+public class HelloOpenAI {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         var apiKey = System.getenv("OPENAI_API_KEY");
