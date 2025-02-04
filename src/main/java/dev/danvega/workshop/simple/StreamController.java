@@ -31,7 +31,7 @@ public class StreamController {
     @GetMapping("/stream")
     public Flux<String> stream(@RequestParam(
             value = "message",
-            defaultValue = "I'm visiting Dallas this week, what are 10 places I must visit?") String message) {
+            defaultValue = "I'm visiting Cleveland this week, what are 10 places I must visit?") String message) {
         return chatClient.prompt()
                 .user(message)
                 .stream()
