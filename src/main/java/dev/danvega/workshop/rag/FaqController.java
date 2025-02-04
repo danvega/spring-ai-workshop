@@ -15,7 +15,7 @@ public class FaqController {
 
     public FaqController(ChatClient.Builder builder, VectorStore vectorStore) {
         this.chatClient = builder
-                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore,SearchRequest.defaults()))
+                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore))
                 .build();
     }
 
