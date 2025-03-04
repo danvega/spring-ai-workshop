@@ -1,11 +1,21 @@
 # Spring AI Workshop
 
-This is a repository that contains all the code for my Spring AI Workshop. In this workshop we go through an introduction to AI and building intelligent applications in Java with Spring AI.
+Welcome to the Spring AI Workshop repository! This project demonstrates how to build intelligent applications in Java using Spring AI. Whether you're new to AI or looking to integrate advanced capabilities into your Spring applications, this workshop will guide you through essential concepts and practical implementations.
+
+## What You'll Learn
+
+This workshop covers both theoretical foundations and hands-on coding examples, including:
+- Understanding AI, Machine Learning, and Deep Learning
+- Working with Large Language Models (LLMs)
+- Building AI-powered applications with Spring AI
+- Implementing chat interfaces, memory management, and structured outputs
+- Leveraging techniques like RAG (Retrieval Augmented Generation)
+- Working with multimodal AI capabilities
 
 ## Agenda
 
 - **Artificial Intelligence (AI)**
-  - Overview 
+  - Overview
   - Machine Learning / Deep Learning
     - Supervised Learning
     - Unsupervised Learning
@@ -18,9 +28,11 @@ This is a repository that contains all the code for my Spring AI Workshop. In th
   - Getting Started
   - Chat Client
   - Memory
-  - Prompt
-  - Output
-  - RAG
+  - Prompt Engineering
+  - Structured Output
+  - RAG (Retrieval Augmented Generation)
+  - Tools & Function Calling
+  - Multimodal Capabilities
 
 ## Artificial Intelligence (AI)
 
@@ -54,396 +66,357 @@ Unsupervised learning is a type of machine learning where the model is trained o
 
 ![AI](/images/ai.png)
 
-## Large Language Models (LLMs)
+## Project Requirements
 
-In this section of the workshop you will learn about how to consume Large Language Models (LLMs).
+To run this workshop code, you'll need:
 
-### Models
+- Java 17 or higher
+- Maven or Gradle (project uses Maven)
+- An OpenAI API key (for accessing GPT models)
+- Spring Boot 3.2+
 
-- [Open AI](https://openai.com/)
-- [Google Gemini](https://ai.google.dev/gemini-api)
-- [Hugging Face](https://huggingface.co/)
+## Dependencies
 
-### Tokens 
+This project relies on several key dependencies:
 
-Tokens are the currency of LLMs - OpenAI's large language models (sometimes referred to as GPT's) process text using tokens, which are common sequences of characters found in a set of text.
+- Spring Boot 3.2+
+- Spring AI
+- Spring Web
+- Spring AI OpenAI Starter
+- Spring DevTools (optional, for development)
 
-- https://openai.com/api/pricing/
-- https://platform.openai.com/tokenizer
+## Getting Started
 
-### AI REST Endpoints
+### Setting Up Your Environment
 
-To be able to call the Open AI REST endpoint you need to signup for an [Open AI API](https://platform.openai.com/). Once you have an API key you can call a REST endpoint using cURL or Java.
-
-```shell
-#!/bin/bash
-echo "Calling Open AI..."
-MY_OPENAI_KEY="YOUR_API_KEY_HERE"
-PROMPT="Tell me a dad joke about banks"
-
-curl https://api.openai.com/v1/chat/completions \
--H "Content-Type: application/json" \
--H "Authorization: Bearer $MY_OPENAI_KEY" \
--d '{ "model": "gpt-4o", "messages": [{"role":"user", "content": "'"${PROMPT}"'"}] }'
-```
-
-```java
-public class HelloOpenAI {
-
-    public void call() throws IOException, InterruptedException {
-        var apiKey = "YOUR_API_KEY";
-        var body = """
-                {
-                    "model": "gpt-4o",
-                    "messages": [
-                        {
-                            "role": "user",
-                            "content": "Tell me a good dad joke about Dogs"
-                        }
-                    ]
-                }""";
-
-        var request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.openai.com/v1/chat/completions"))
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + apiKey)
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .build();
-
-        var client = HttpClient.newHttpClient();
-        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-    }
-
-}
-```
-
-## Spring AI
-
-The Spring AI project aims to streamline the development of applications that incorporate artificial intelligence functionality without unnecessary complexity.
-
-The project draws inspiration from notable Python projects, such as LangChain and LlamaIndex, but Spring AI is not a direct port of those projects. The project was founded with the belief that the next wave of Generative AI applications will not be only for Python developers but will be ubiquitous across many programming languages.
-
-### Documentation / Getting Started 
-
-- [Spring AI Documentation](https://docs.spring.io/spring-ai/reference/)
-- [Spring Initializr](https://start.spring.io)
-- Web,Open AI, DevTools
-- application.properties
-  - Hardcoding string
-  - Environment Variables
+1. Clone this repository
+2. Ensure you have Java 17+ installed
+3. Create an OpenAI API key at [OpenAI Platform](https://platform.openai.com/)
+4. Configure your application.properties:
 
 ```properties
 spring.application.name=ai-workshop
-spring.ai.openai.api-key=YOUR_OPEN_AI_API_KEY
+spring.ai.openai.api-key=${OPENAI_API_KEY}
 spring.ai.openai.chat.options.model=gpt-4o
+spring.threads.virtual.enabled=true
 ```
 
-**HTTP Clients**
+For security, it's recommended to use environment variables for your API key rather than hardcoding it.
 
-You will be creating a number of REST endpoints that call OpenAI's GPT-4o Model. To manually test the endpoints you will need an HTTP client. There are a number of options below, but I will be using httpie. 
+### HTTP Clients for Testing
 
-- [IntelliJ](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) 
+To test the REST endpoints, you'll need an HTTP client. Options include:
+
+- [IntelliJ HTTP Client](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html)
 - [Postman](https://www.postman.com/)
 - [cURL](https://curl.se/)
-- [httpie](https://httpie.io/)
+- [HTTPie](https://httpie.io/)
 
-### Chat Client 
+## How to Run the Application
 
-The ChatClient offers a fluent API for communicating with an AI Model. It supports both a synchronous and reactive programming model.
+1. Set your OpenAI API key as an environment variable:
+   ```
+   export OPENAI_API_KEY=your-api-key-here
+   ```
 
-The `ChatController` demo shows off how to get an instance of the ChatClient and how to call the LLM using the fluent API. 
+2. Start the Spring Boot application:
+   ```
+   ./mvnw spring-boot:run
+   ```
 
-```java
-@RestController
-public class ChatController {
+3. The application will start, typically on port 8080
 
-    private final ChatClient chatClient;
+## Core Concepts and Code Examples
 
-    public ChatController(ChatClient.Builder builder) {
-        this.chatClient = builder
-                .build();
-    }
+### Working with the Chat Client
 
-    @GetMapping("/")
-    public String joke(@RequestParam(value = "message", defaultValue = "Tell me a dad joke about Banks") String message) {
-        return chatClient.prompt()
-                .user(message)
-                .call()
-                .content(); // short for getResult().getOutput().getContent();
-    }
-    
-    @GetMapping("/jokes-by-topic")
-    public String jokesByTopic(@RequestParam String topic) {
-        return chatClient.prompt()
-                .user(u -> u.text("Tell me a joke about {topic}").param("topic",topic))
-                .call()
-                .content();
-    }
-    
-    @GetMapping("jokes-with-response")
-    public ChatResponse jokeWithResponse(@RequestParam(value = "message", defaultValue = "Tell me a dad joke about computers") String message) {
-        return chatClient.prompt()
-                .user(message)
-                .call()
-                .chatResponse();
-    }
-
-}
-```
-
-The `StreamController` shows off an example of using the `stream()` method. The stream lets you get an asynchronous response
+The ChatClient is a key component in Spring AI, providing a fluent API for interacting with LLMs. Here's a basic example from our `ChatController`:
 
 ```java
-@RestController
-public class StreamController {
-
-  private final ChatClient chatClient;
-
-  public StreamController(ChatClient.Builder builder) {
-    this.chatClient = builder
-            .build();
-  }
-
-  @GetMapping("/without-stream")
-  public String withoutStream(@RequestParam(
-          value = "message",
-          defaultValue = "I'm visiting Toronto this week, what are 10 places I must visit?") String message) {
-
+@GetMapping("/")
+public String joke(@RequestParam(value = "message", defaultValue = "Tell me a dad joke about Dogs") String message) {
     return chatClient.prompt()
             .user(message)
             .call()
             .content();
-  }
-
-  // http --stream :8080/stream
-  @GetMapping("/stream")
-  public Flux<String> stream(@RequestParam(
-          value = "message",
-          defaultValue = "I'm visiting Toronto this week, what are 10 places I must visit?") String message) {
-    return chatClient.prompt()
-            .user(message)
-            .stream()
-            .content();
-  }
-
 }
 ```
 
-### Chat Memory
-
-The web is stateless, and we need to remember that when working the various REST endpoints that the LLMs provide. This might be a bit confusing because you have probably used ChatGPT before, and it remembers previous conversations and can build upon them. You have to remember that ChatGPT is a product that talks to an LLM like GPT-4o and the product is what preserves conversational history. 
-
-The interface `ChatMemory` represents a storage for chat conversation history. It provides methods to add messages to a * conversation, retrieve messages from a conversation, and clear the conversation history. There is one implementation InMemoryChatMemory that provides in-memory storage for chat conversation history.
-
-In the following example you can use the in memory chat memory to send previous conversations along as context. 
+You can also parametrize messages:
 
 ```java
-@RestController
-public class StatefulController {
-
-    private final ChatClient chatClient;
-
-    public StatefulController(ChatClient.Builder builder) {
-        this.chatClient = builder
-                .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
-                .build();
-    }
-
-    @GetMapping("/chat")
-    public String home(@RequestParam String message) {
-        return chatClient.prompt()
-                .user(message)
-                .call()
-                .content();
-    }
-
+@GetMapping("/jokes-by-topic")
+public String jokesByTopic(@RequestParam String topic) {
+    return chatClient.prompt()
+            .user(u -> u.text("Tell me a joke about {topic}").param("topic",topic))
+            .call()
+            .content();
 }
 ```
 
-Run the previous example and let the LLM know what your name is and then send a follow-up request asking the LLM if it remembers your name. Try running this example by commenting out the `defaultAdvisors()` line of code. 
+To access the full response object:
+
+```java
+@GetMapping("jokes-with-response")
+public ChatResponse jokeWithResponse(@RequestParam(value = "message", defaultValue = "Tell me a dad joke about computers") String message) {
+    return chatClient.prompt()
+            .user(message)
+            .call()
+            .chatResponse();
+}
+```
+
+### Streaming Responses
+
+For longer responses, you can stream results to improve user experience:
+
+```java
+@GetMapping("/stream")
+public Flux<String> stream() {
+    return chatClient.prompt()
+            .user("I am visiting Atlanta, GA can you give me 10 places I must visit")
+            .stream()
+            .content();
+}
+```
+
+### Implementing Chat Memory
+
+LLMs are stateless by default. Spring AI provides memory capabilities to maintain conversation context:
+
+```java
+public StatefulController(ChatClient.Builder builder) {
+    this.chatClient = builder
+            .defaultAdvisors(new MessageChatMemoryAdvisor(new InMemoryChatMemory()))
+            .build();
+}
+
+@GetMapping("/chat")
+public String home(@RequestParam String message) {
+    return chatClient.prompt()
+            .user(message)
+            .call()
+            .content();
+}
+```
+
+Test conversation memory with these sequential requests:
 
 ```shell
 http :8080/chat message=="My name is Dan, how are you doing today?"
-```
-
-```shell
 http :8080/chat message=="What is my name?"
 ```
 
-### Prompts
+### Structured Output
 
-Prompts serve as the foundation for the language-based inputs that guide an AI model to produce specific outputs. For those familiar with ChatGPT, a prompt might seem like merely the text entered into a dialog box that is sent to the API. However, it encompasses much more than that. In many AI Models, the text for the prompt is not just a simple string.
-
-You might have heard the term "Prompt Engineering" which I'm not a very big fan of but the idea behind it is. Really what we are talking about here is learning how to effectively communicate with an AI model. It is such an import part building AI powered applications and getting your desired output from an LLM.
-
-- [Prompt Engineering Guidelines from Open AI](https://platform.openai.com/docs/guides/prompt-engineering)
-- [Deep Learning: GhatGPT Prompt Engineering for Developers](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/)
+Spring AI can automatically convert LLM responses to Java objects:
 
 ```java
-@RestController
-public class TreasureController {
+@GetMapping("/vacation/structured")
+public Itinerary vacationStructured() {
+    return chatClient.prompt()
+            .user("What's a good vacation plan while I'm in Montreal CA for 4 days?")
+            .call()
+            .entity(Itinerary.class);
+}
 
-    private final ChatClient chatClient;
-    
-    public TreasureController(ChatClient.Builder builder) {
-        this.chatClient = builder
-                .defaultSystem("Please respond to any question in the voice of a pirate.")
-                .build();
+record Activity(String activity, String location, String day, String time){}
+record Itinerary(List<Activity> itinerary) {}
+```
+
+### Retrieval Augmented Generation (RAG)
+
+RAG enhances LLM responses by incorporating your own data. The `ModelsController` demonstrates this:
+
+```java
+public ModelsController(ChatClient.Builder builder, VectorStore vectorStore) {
+    this.chatClient = builder
+            .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore))
+            .build();
+}
+
+@GetMapping("/rag/models")
+public String faq(@RequestParam(value = "message", defaultValue = "List the top 3 Large Language Models when it comes to context window size.") String message) {
+    return chatClient.prompt()
+            .user(message)
+            .call()
+            .content();
+}
+```
+
+The `RagConfiguration` class handles document loading and vector storage:
+
+```java
+@Bean
+SimpleVectorStore simpleVectorStore(EmbeddingModel embeddingModel) throws IOException {
+    var simpleVectorStore = SimpleVectorStore.builder(embeddingModel).build();
+    var vectorStoreFile = getVectorStoreFile();
+    if (vectorStoreFile.exists()) {
+        log.info("Vector Store File Exists,");
+        simpleVectorStore.load(vectorStoreFile);
+    } else {
+        log.info("Vector Store File Does Not Exist, loading documents");
+        TextReader textReader = new TextReader(models);
+        // rest of configuration...
     }
-    
-    @GetMapping("/treasure")
-    public String treasureFacts() {
-        return chatClient.prompt()
-                .user("Tell me a really interesting fact about famous pirate treasures. Please keep your answer to 1 or 2 sentences.")
-                .call()
-                .content();
+    return simpleVectorStore;
+}
+```
+
+### Working with Tools and Function Calling
+
+Spring AI supports tools (function calling) to extend LLM capabilities:
+
+```java
+@GetMapping("/tools")
+public String tools() {
+    return chatClient.prompt("What day is tomorrow?")
+            .tools(new DatTimeTools())
+            .call()
+            .content();
+}
+
+// Tool definition
+public class DatTimeTools {
+    @Tool(description = "Get the current date and time in the user's timezone")
+    String getCurrentDateTime() {
+        return LocalDateTime.now().atZone(LocaleContextHolder.getTimeZone().toZoneId()).toString();
     }
 }
 ```
 
+### Multimodal Capabilities
+
+Spring AI supports working with multiple content types, including images:
+
 ```java
-@RestController
-@RequestMapping("/youtube")
-public class YouTube {
+@GetMapping("/image-to-text")
+public String image() throws IOException {
+    return chatClient.prompt()
+            .user(u -> u
+                    .text("Can you please explain what you see in the following image?")
+                    .media(MimeTypeUtils.IMAGE_JPEG, sampleImage)
+            )
+            .call()
+            .content();
+}
+```
 
-    private final ChatClient chatClient;
-    @Value("classpath:/prompts/youtube.st")
-    private Resource ytPromptResource;
+### Effective Prompt Engineering
 
-    public YouTube(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
-    }
+Carefully crafted prompts can dramatically improve LLM outputs. Here's an example from `ArticleController`:
 
-    @GetMapping("/popular")
-    public String findPopularYouTubersStepOne(@RequestParam(value = "genre", defaultValue = "tech") String genre) {
-        String message = """
-            List 10 of the most popular YouTubers in {genre} along with their current subscriber counts. If you don't know
-            the answer , just say "I don't know".
+```java
+@GetMapping("/posts/new")
+public String newPost(@RequestParam String topic) {
+    var system = """
+            Blog Post Generator Guidelines:
+            
+            1. Length & Purpose: Generate 500-word blog posts that inform and engage general audiences.
+            
+            2. Structure:
+               - Introduction: Hook readers and establish the topic's relevance
+               - Body: Develop 3 main points with supporting evidence and examples
+               - Conclusion: Summarize key takeaways and include a call-to-action
+            
+            3. Content Requirements:
+               - Include real-world applications or case studies
+               - Incorporate relevant statistics or data points when appropriate
+               - Explain benefits/implications clearly for non-experts
+            
+            4. Tone & Style:
+               - Write in an informative yet conversational voice
+               - Use accessible language while maintaining authority
+               - Break up text with subheadings and short paragraphs
+            
+            5. Response Format: Deliver complete, ready-to-publish posts with a suggested title.
             """;
 
-        return chatClient.prompt()
-                .user(u -> u.text(message).param("genre",genre))
-                .call()
-                .content();
-    }
-
-    @GetMapping("/popular-resource")
-    public String findPopularYouTubers(@RequestParam(value = "genre", defaultValue = "tech") String genre) {
-        return chatClient.prompt()
-                .user(u -> u.text(ytPromptResource).param("genre",genre))
-                .call()
-                .content();
-    }
-
+    return chatClient.prompt()
+            .system(system)
+            .user(u -> {
+                u.text("Write me a blog post about {topic}");
+                u.param("topic",topic);
+            })
+            .call()
+            .content();
 }
 ```
 
-### Structured Output 
+### Calling LLM APIs Directly
 
-The ability of LLMs to produce structured outputs is important for downstream applications that rely on reliably parsing output values. Developers want to quickly turn results from an AI model into data types, such as JSON, XML or Java Classes, that can be passed to other application functions and methods.
-
-https://docs.spring.io/spring-ai/reference/api/structured-output-converter.html
+For comparison, here's how to call OpenAI directly without Spring AI:
 
 ```java
-public record ActorFilms(String actor, List<String> movies) {}
-```
+public static void main(String[] args) throws IOException, InterruptedException {
+    var apiKey = System.getenv("OPENAI_API_KEY");
+    var body = """
+            {
+                "model": "gpt-4o",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": "Tell me an interesting fact about the Spring Framework"
+                    }
+                ]
+            }""";
 
-```java
-@RestController
-public class ActorController {
+    var request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.openai.com/v1/chat/completions"))
+            .header("Content-Type", "application/json")
+            .header("Authorization", "Bearer " + apiKey)
+            .POST(HttpRequest.BodyPublishers.ofString(body))
+            .build();
 
-    private final ChatClient chatClient;
-
-    public ActorController(ChatClient.Builder builder) {
-        this.chatClient = builder
-                .build();
-    }
-
-    @GetMapping("/films")
-    public ActorFilms getActorFilms() {
-        return chatClient.prompt()
-                .user("Generate a filmography for a Anthony Hopkins.")
-                .call()
-                .entity(ActorFilms.class);
-    }
-
-    @GetMapping("/films-list")
-    public List<ActorFilms> listActorFilms() {
-        return chatClient.prompt()
-                .user("Generate a filmography for the actors Denzel Washington, Leonardo DiCaprio and Tom Hanks")
-                .call()
-                .entity(new ParameterizedTypeReference<>() {});
-    }
-
+    var client = HttpClient.newHttpClient();
+    var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    System.out.println(response.body());
 }
 ```
 
-### Bring your own data
+## Bringing Your Own Data
 
-How can you equip the AI model with information on which it has not been trained? Note that the GPT 3.5/4.0 dataset extends only until September 2021. Consequently, the model says that it does not know the answer to questions that require knowledge beyond that date. 
+Three techniques exist for customizing AI models with your data:
 
-There is also the point that an LLM is not trained on your company data that it does not have access to. Three techniques exist for customizing the AI model to incorporate your data:
+1. **Fine Tuning**: Tailoring the model by changing its internal weighting. Resource-intensive and challenging.
 
-**Fine Tuning**: This traditional machine learning technique involves tailoring the model and changing its internal weighting. However, it is a challenging process for machine learning experts and extremely resource-intensive for models like GPT due to their size. Additionally, some models might not offer this option.
-
-**Prompt Stuffing**: A more practical alternative involves embedding your data within the prompt provided to the model. Given a model’s token limits, techniques are required to present relevant data within the model’s context window. This approach is colloquially referred to as “stuffing the prompt.” The Spring AI library helps you implement solutions based on the “stuffing the prompt” technique otherwise known as Retrieval Augmented Generation (RAG).
-
-**Function Calling**: This technique allows registering custom, user functions that connect the large language models to the APIs of external systems. Spring AI greatly simplifies code you need to write to support function calling.
-
-#### Retrieval Augmented Generation (RAG)
-
-A technique termed Retrieval Augmented Generation (RAG) has emerged to address the challenge of incorporating relevant data into prompts for accurate AI model responses. The approach involves a batch processing style programming model, where the job reads unstructured data from your documents, transforms it, and then writes it into a vector database. At a high level, this is an ETL (Extract, Transform and Load) pipeline. The vector database is used in the retrieval part of RAG technique.
-
-**Vector Stores**
-
-A vector databases is a specialized type of database that plays an essential role in AI applications. In vector databases, queries differ from traditional relational databases. Instead of exact matches, they perform similarity searches. When given a vector as a query, a vector database returns vectors that are “similar” to the query vector. 
-
-Spring AI provides support for a number of Vector Databases through Auto-Configuration. Here are a few of the supported vector databases if you want to see a full list please go [here](https://docs.spring.io/spring-ai/reference/api/vectordbs.html#_available_implementations). 
-
-- PgVector Store
-- Azure Vector Search
-- Oracle Vector Store
-- Redis Vector Store
-- SimpleVectorStore
-
-**Embeddings**
-
-Embeddings transform text into numerical arrays or vectors, enabling AI models to process and interpret language data. This transformation from text to numbers is a key element in how AI interacts with and understands human language.
-
-![Embeddings](/images/embeddings.png)
-
-#### Bring you own data Demos
-
-- **Stuffing the Prompt**: `stuff/Olympics.java`
-- **RAG**: `/rag/FaqController.java`
-- **Functions**: `/functions/CityController.java`
-
-### Multimodal API
-
-Humans process knowledge, simultaneously across multiple modes of data inputs. The way we learn, our experiences are all multimodal. We don’t have just vision, just audio and just text. In the previous examples we took in some text and generated some text. In this example you will use an image as the input and generate some text as the output. 
+2. **Prompt Stuffing**: Embedding your data within the prompt. Example from `ModelComparison`:
 
 ```java
-@RestController
-public class ImageDetection {
-
-    private final ChatClient chatClient;
-    @Value("classpath:/images/sincerely-media-2UlZpdNzn2w-unsplash.jpg")
-    Resource sampleImage;
-
-    public ImageDetection(ChatClient.Builder builder) {
-        this.chatClient = builder.build();
-    }
-
-    @GetMapping("/image-to-text")
-    public String image() throws IOException {
-        return chatClient.prompt()
-                .user(u -> u
-                        .text("Can you please explain what you see in the following image?")
-                        .media(MimeTypeUtils.IMAGE_JPEG,sampleImage)
-                )
-                .call()
-                .content();
-    }
+@GetMapping("/models/stuff-the-prompt")
+public String modelsWithData() {
+    var system = """
+            If you're asked about up to date language models and there context window here is some information to help you with your response: 
+            [
+              {
+                "company": "OpenAI",
+                "model": "GPT-4o",
+                "context_window_size": 128000
+              },
+              ...
+            ]
+            """;
+    return chatClient.prompt()
+            .user("Give me 1 llm per company with the largest context window")
+            .system(system)
+            .call()
+            .content();
 }
 ```
+
+3. **Function Calling**: Registering custom functions that connect LLMs to external systems.
+
+## Additional Resources
+
+- [Spring AI Documentation](https://docs.spring.io/spring-ai/reference/)
+- [Spring Initializr](https://start.spring.io)
+- [OpenAI API Documentation](https://platform.openai.com/docs/introduction)
+- [Prompt Engineering Guidelines](https://platform.openai.com/docs/guides/prompt-engineering)
+
+## Conclusion
+
+Spring AI provides a powerful, intuitive way to integrate AI capabilities into your Java applications. By leveraging the familiar Spring ecosystem, developers can quickly build sophisticated AI-powered features without needing extensive machine learning expertise.
+
+This workshop repository demonstrates fundamental techniques for working with LLMs in Spring, from basic chat interactions to advanced RAG implementations and multimodal capabilities. As you explore these examples, you'll gain practical skills for creating your own AI-enhanced applications.
+
+Happy coding!
