@@ -1,4 +1,4 @@
-package dev.danvega.workshop.simple;
+package dev.danvega.workshop.chat;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
