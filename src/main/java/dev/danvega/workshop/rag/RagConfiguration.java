@@ -28,8 +28,8 @@ public class RagConfiguration {
     @Value("vectorstore.json")
     private String vectorStoreName;
 
-    @Value("classpath:/docs/olympic-faq.txt")
-    private Resource faq;
+    @Value("classpath:/data/models.json")
+    private Resource models;
 
     @Bean
     SimpleVectorStore simpleVectorStore(EmbeddingModel embeddingModel) throws IOException {
@@ -40,8 +40,8 @@ public class RagConfiguration {
             simpleVectorStore.load(vectorStoreFile);
         } else {
             log.info("Vector Store File Does Not Exist, loading documents");
-            TextReader textReader = new TextReader(faq);
-            textReader.getCustomMetadata().put("filename", "olympic-faq.txt");
+            TextReader textReader = new TextReader(models);
+            textReader.getCustomMetadata().put("filename", "models.txt");
             List<Document> documents = textReader.get();
             TextSplitter textSplitter = new TokenTextSplitter();
             List<Document> splitDocuments = textSplitter.apply(documents);

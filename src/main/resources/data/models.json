@@ -1,0 +1,52 @@
+[
+  {
+    "company": "OpenAI",
+    "model": "GPT-4o",
+    "context_window_size": 128000
+  },
+  {
+    "company": "OpenAI",
+    "model": "o1",
+    "context_window_size": 128000
+  },
+  {
+    "company": "Anthropic",
+    "model": "Claude 3.5 Sonnet",
+    "context_window_size": 200000
+  },
+  {
+    "company": "Google",
+    "model": "Gemini 2.0 Flash",
+    "context_window_size": 1000000
+  },
+  {
+    "company": "Google",
+    "model": "Gemini 2.0 Pro",
+    "context_window_size": 2000000
+  },
+  {
+    "company": "Meta AI",
+    "model": "Llama 3.1 405B",
+    "context_window_size": 128000
+  },
+  {
+    "company": "xAI",
+    "model": "Grok 3",
+    "context_window_size": 200000
+  },
+  {
+    "company": "Mistral AI",
+    "model": "Mistral Large 2",
+    "context_window_size": 128000
+  },
+  {
+    "company": "Alibaba Cloud",
+    "model": "Qwen 2.5 72B",
+    "context_window_size": 128000
+  },
+  {
+    "company": "DeepSeek",
+    "model": "DeepSeek R1",
+    "context_window_size": 128000
+  }
+]
