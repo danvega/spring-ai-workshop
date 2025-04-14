@@ -15,7 +15,7 @@ public class ArticleController {
     }
 
     @GetMapping("/posts/new")
-    public String newPost(@RequestParam String topic) {
+    public String newPost() {
 
         var system = """
                 Blog Post Generator Guidelines:
@@ -44,7 +44,7 @@ public class ArticleController {
                 .system(system)
                 .user(u -> {
                     u.text("Write me a blog post about {topic}");
-                    u.param("topic",topic);
+                    u.param("topic","dogs");
                 })
                 .call()
                 .content();

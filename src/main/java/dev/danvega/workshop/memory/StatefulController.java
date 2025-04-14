@@ -18,7 +18,7 @@ public class StatefulController {
                 .build();
     }
 
-    @GetMapping("/chat")
+    @GetMapping("/memory")
     public String home(@RequestParam String message) {
         return chatClient.prompt()
                 .user(message)
