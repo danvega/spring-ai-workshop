@@ -1,23 +1,23 @@
-package dev.danvega.workshop.tools;
+package dev.danvega.workshop;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DatTimeChatController {
+public class SimpleChatController {
 
     private final ChatClient chatClient;
 
-    public DatTimeChatController(ChatClient.Builder builder) {
+    public SimpleChatController(ChatClient.Builder builder) {
         this.chatClient = builder
                 .build();
     }
 
-    @GetMapping("/tools")
-    public String tools() {
-        return chatClient.prompt("What day is tomorrow?")
-                .tools(new DatTimeTools())
+    @GetMapping("/boeing")
+    public String chat() {
+        return chatClient.prompt()
+                .user("Tell me an intresting fact about Beoing")
                 .call()
                 .content();
     }

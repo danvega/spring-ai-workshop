@@ -44,7 +44,7 @@ public class ArticleController {
                 .system(system)
                 .user(u -> {
                     u.text("Write me a blog post about {topic}");
-                    u.param("topic","dogs");
+                    u.param("topic","JDK Virtual Threads");
                 })
                 .call()
                 .content();

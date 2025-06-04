@@ -17,7 +17,7 @@ public class AsyncChatController {
     @GetMapping("/stream")
     public Flux<String> stream() {
         return chatClient.prompt()
-                .user("I am visiting Atlanta, GA can you give me 10 places I must visit")
+                .user("I am visiting Charleston, SC can you give me 10 places I must visit")
                 .stream()
                 .content();
     }
