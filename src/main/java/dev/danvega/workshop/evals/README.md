@@ -1,98 +1,119 @@
 # Spring AI Evaluation Examples
 
-This package provides examples of different evaluation techniques for AI models using the Spring AI framework. These tests demonstrate how to assess the quality and correctness of AI-generated responses in various scenarios.
+This package demonstrates different techniques for evaluating AI model responses using the Spring AI framework. Learn how to assess quality, relevance, and accuracy of AI-generated content through practical examples.
 
 ## Prerequisites
 
-Before running these tests, ensure you have the following installed and configured:
+- **Java** - JDK 17 or later
+- **Maven or Gradle** - For building and running tests
+- **Docker Desktop** - Required for local LLM instances
+- **Ollama** - Install and pull required models:
+  ```bash
+  ollama pull bespokeai/minicheck
+  ```
 
-- Java (JDK 17 or later recommended)
-- Maven or Gradle (to build the project and run tests)
-- Docker Desktop (for running local LLM instances via Testcontainers)
-- You will also need to pull the necessary LLM models into your local Ollama instance. Open your terminal and run:bash
-  - ollama pull bespokeai/minicheck
-
-(If you haven't used Ollama before, you might need to install it first and ensure it's running.)
-
-## Overview of Tests
-
-This project includes the following evaluation test examples:
-
-1.  **Sentiment Analysis Test:** Demonstrates traditional unit testing for deterministic AI tasks.
-2.  **Relevancy Evaluator Test:** Shows how to use an LLM to evaluate if an AI's response is relevant to the query and context.
-3.  **Fact Checking Evaluator Test:** Illustrates using an LLM to verify the factual accuracy of an AI's claims against provided documents.
-
-## Test Details
+## Test Examples
 
 ### 1. Sentiment Analysis Test
 
-*   **Purpose:** This test evaluates an AI model's ability to perform sentiment classification (e.g., POSITIVE, NEGATIVE, NEUTRAL) on a given text. It's an example of testing deterministic AI tasks where expected outcomes are known and consistent.
-*   **How it Works:**
-    *   It uses the Spring AI `ChatClient` to send a text input to an LLM.
-    *   The LLM is prompted to classify the sentiment and return a specific keyword (e.g., "POSITIVE").
-    *   Spring AI's `.entity(Sentiment.class)` feature is used to automatically map the LLM's string response to a predefined Java `Sentiment` enum.
-    *   The test asserts that the classified sentiment matches the expected sentiment for various inputs.
-    *   A low `temperature` setting is typically used for the LLM to ensure consistent and predictable outputs for this type of task.
-*   **How to Use/Run:**
-    *   Locate the `SentimentAnalysisTest.java` file (or similarly named file).
-    *   This is a standard JUnit 5 test. You can run it from your IDE or using your build tool (e.g., `mvn test`).
-    *   The test methods will call a service method (e.g., `classifySentiment(String review)`) which interacts with the LLM.
-    *   Assertions check if the returned `Sentiment` enum matches the expected value.
+**What it does:** Evaluates an AI model's ability to classify text sentiment (POSITIVE, NEGATIVE, NEUTRAL).
+
+**Key features:**
+- Uses Spring AI's `ChatClient` for LLM interaction
+- Maps responses to Java enums with `.entity(Sentiment.class)`
+- Low temperature setting ensures consistent results
+- Standard JUnit assertions validate expected outcomes
+
+**Running the test:**
+```bash
+mvn test -Dtest=SentimentAnalysisTest
+```
 
 ### 2. Relevancy Evaluator Test
 
-*   **Purpose:** This test assesses whether an AI model's response is relevant to a user's query and any provided contextual information. This is particularly useful for evaluating Retrieval Augmented Generation (RAG) systems.
-*   **How it Works:**
-    *   It utilizes Spring AI's `RelevancyEvaluator`.
-    *   The `RelevancyEvaluator` internally uses another LLM (the "evaluator model," e.g., `mistral` in this example) to judge the relevance.
-    *   Testcontainers is used to automatically start and manage a local Ollama instance running the `mistral` model.
-    *   An `EvaluationRequest` is created, containing the user query, a list of context documents, and the AI-generated response to be evaluated.
-    *   The `RelevancyEvaluator` processes this request and returns an `EvaluationResponse`. The `isPass()` method of the response indicates if the AI's answer was deemed relevant.
-*   **How to Use/Run:**
-    *   Locate the `RelevancyEvaluatorDemoTest.java` file (or similarly named file).
-    *   Ensure Docker Desktop is running.
-    *   This JUnit 5 test uses `@Testcontainers`. When you run the test, it will automatically start an Ollama container.
-    *   The test sets up a `RelevancyEvaluator` configured to use the Ollama-hosted `mistral` model.
-    *   Test methods provide sample queries, contexts, and AI responses. Assertions check the `isPass()` status of the `EvaluationResponse`.
+**What it does:** Determines if AI responses are relevant to user queries and provided context - perfect for RAG system evaluation.
+
+**Key features:**
+- Uses Spring AI's `RelevancyEvaluator`
+- Automatically provisions Mistral model via Testcontainers
+- Evaluates response relevance with `isPass()` method
+- No manual Docker setup required
+
+**Running the test:**
+```bash
+mvn test -Dtest=RelevancyEvaluatorDemoTest
+```
 
 ### 3. Fact Checking Evaluator Test
 
-*   **Purpose:** This test verifies the factual accuracy of claims made in an AI's response against a set of provided reference documents. It helps detect factual inaccuracies and hallucinations.
-*   **How it Works:**
-    *   It employs Spring AI's `FactCheckingEvaluator`.
-    *   This evaluator uses a specialized LLM (the "evaluator model," e.g., `bespokeai/minicheck` in this example) designed for fact-checking tasks.
-    *   Testcontainers manages a local Ollama instance running the `bespokeai/minicheck` model.
-    *   An `EvaluationRequest` is constructed, containing the reference document(s) (as context) and the AI-generated claim (as the response to be evaluated). The original user query can also be included.
-    *   The `FactCheckingEvaluator` determines if the claim is factually supported by the provided documents, returning an `EvaluationResponse`. The `isPass()` method indicates factual consistency.
-*   **How to Use/Run:**
-    *   Locate the `FactCheckingEvaluatorDemoTest.java` file (or similarly named file).
-    *   Ensure Docker Desktop is running.
-    *   This JUnit 5 test also uses `@Testcontainers` to manage the Ollama instance with the `bespokeai/minicheck` model.
-    *   The test sets up a `FactCheckingEvaluator` configured to use this specialized model.
-    *   Test methods provide sample context documents and AI claims. Assertions check the `isPass()` status of the `EvaluationResponse`.
+**What it does:** Verifies factual accuracy of AI claims against reference documents to detect hallucinations.
+
+**Key features:**
+- Uses Spring AI's `FactCheckingEvaluator`
+- Leverages specialized `bespokeai/minicheck` model
+- Validates claims against provided documentation
+- Returns pass/fail status for factual consistency
+
+**Running the test:**
+```bash
+mvn test -Dtest=FactCheckingEvaluatorDemoTest
+```
+
+### 4. Structured Output Test
+
+**What it does:** Validates that AI responses can be automatically mapped to Java objects with the expected structure and content.
+
+**Key features:**
+- Tests Spring AI's `.entity()` method for type-safe response mapping
+- Generates vacation itineraries that map to custom Java records
+- Validates that structured responses contain required fields
+- Ensures AI output conforms to predefined data models
+
+**Running the test:**
+```bash
+mvn test -Dtest=StructuredOutputTest
+```
 
 ## Running All Tests
 
-You can run all tests in the project using your IDE's test runner or via the command line:
+Execute all tests with a single command:
 
-*   **Maven:** `mvn test`
-*   **Gradle:** `./gradlew test`
+```bash
+# Maven
+mvn test
 
-Ensure Docker Desktop is running before executing tests that use Testcontainers (Relevancy and Fact Checking tests).
+# Gradle
+./gradlew test
+```
 
-## Key Technologies Used
+**Note:** Ensure Docker Desktop is running before executing tests that use Testcontainers.
 
-*   Spring AI
-*   JUnit 5
-*   Testcontainers
-*   Ollama
+## Technology Stack
 
-## Customization
+- **Spring AI** - Core framework for AI integration
+- **JUnit 5** - Testing framework
+- **Testcontainers** - Automated container management
+- **Ollama** - Local LLM runtime
 
-These examples use default configurations and prompts for the evaluators. For real-world applications, you can customize:
+## Customization Options
 
-*   The prompts used by the evaluators to better suit your specific criteria.
-*   The LLM models used for generation and evaluation.
-*   The `ChatOptions` (e.g., temperature, max tokens) for LLM interactions.
+Adapt these examples to your needs by customizing:
 
-Refer to the Spring AI documentation for more details on customization.
+- **Evaluation prompts** - Tailor criteria for your use case
+- **LLM models** - Switch between different models for generation or evaluation
+- **Chat options** - Adjust temperature, token limits, and other parameters
+- **Evaluation thresholds** - Define custom pass/fail criteria
+
+See the [Spring AI documentation](https://docs.spring.io/spring-ai/reference/) for detailed customization guides.
+
+## Getting Started
+
+1. Clone the repository
+2. Install prerequisites
+3. Pull required Ollama models
+4. Run individual tests or the full suite
+5. Explore the code to understand evaluation patterns
+
+## Contributing
+
+Feel free to extend these examples with additional evaluation techniques or improvements to existing tests.

@@ -2,6 +2,7 @@ package dev.danvega.workshop.output;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,13 +25,14 @@ public class VacationPlan {
     }
 
     @GetMapping("/vacation/structured")
-    public Itinerary vacationStructured() {
+    public Itinerary vacationStructured(@RequestParam(value = "destination", defaultValue = "Cleveland, OH") String destination) {
         return chatClient.prompt()
-                .user("What's a good vacation plan while I'm in Montreal CA for 4 days?")
+                .user(u -> {
+                    u.text("What's a good vacation plan while I'm in {destination} for 3 days?");
+                    u.param("destination", destination);
+                })
                 .call()
                 .entity(Itinerary.class);
     }
 
-    record Activity(String activity, String location, String day, String time){}
-    record Itinerary(List<Activity> itinerary) {}
 }
