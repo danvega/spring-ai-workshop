@@ -15,8 +15,13 @@ public class ArticleController {
     }
 
     @GetMapping("/posts/new")
-    public String newPost() {
+    public String newPost(@RequestParam(value = "topic", defaultValue = "JDK Virtual Threads") String topic) {
 
+        // A system message in LLMs is a special type of input that provides high-level instructions, context, or behavioral
+        // guidelines to the model before it processes user queries. Think of it as the "behind-the-scenes"
+        // instructions that shape how the AI should respond.
+        //
+        // Use it as a guide or a restriction to the model's behavior
         var system = """
                 Blog Post Generator Guidelines:
                 
@@ -44,7 +49,7 @@ public class ArticleController {
                 .system(system)
                 .user(u -> {
                     u.text("Write me a blog post about {topic}");
-                    u.param("topic","JDK Virtual Threads");
+                    u.param("topic",topic);
                 })
                 .call()
                 .content();
