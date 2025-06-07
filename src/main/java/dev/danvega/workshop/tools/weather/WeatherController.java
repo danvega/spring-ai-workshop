@@ -3,6 +3,7 @@ package dev.danvega.workshop.tools.weather;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,8 +17,12 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping("/weather/alerts/{state}")
-    public String getAlerts(@PathVariable String state) {
-        return weatherService.getAlerts(state);
+    @GetMapping("/weather/alerts")
+    public String getAlerts(@RequestParam String message) {
+        return chatClient.prompt()
+                .tools(weatherService)
+                .user(message)
+                .call()
+                .content();
     }
 }
