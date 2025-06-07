@@ -13,12 +13,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class WeatherService {
+public class WeatherTools {
 
     private static final String BASE_URL = "https://api.weather.gov";
     private final RestClient restClient;
 
-    public WeatherService(RestClient.Builder builder) {
+    public WeatherTools(RestClient.Builder builder) {
         this.restClient = builder
                 .baseUrl(BASE_URL)
                 .defaultHeader("Accept", "application/geo+json")
