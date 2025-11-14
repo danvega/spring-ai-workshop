@@ -1,0 +1,252 @@
+### Spring AI Workshop - HTTP Request Examples
+
+# ============================================================================
+# 1. BASIC CHAT EXAMPLES
+# ============================================================================
+
+### Simple Chat - Java Fact
+# SimpleChatController - Returns an interesting fact about Java
+GET http://localhost:8080/java
+
+###
+
+### Basic Chat - Default Dad Joke
+# ChatController - Basic chat with default dad joke about dogs
+GET http://localhost:8080/?message=Tell me a dad joke about Dogs
+
+###
+
+### Basic Chat - Custom Message
+# ChatController - Basic chat with custom message
+GET http://localhost:8080/?message=What is the capital of France?
+
+###
+
+### Chat - Jokes by Topic
+# ChatController - Generate a joke about a specific topic
+GET http://localhost:8080/jokes-by-topic?topic=programming
+
+###
+
+### Chat - Jokes by Topic (Cats)
+# ChatController - Generate a joke about cats
+GET http://localhost:8080/jokes-by-topic?topic=cats
+
+###
+
+### Chat - With Full Response Object
+# ChatController - Returns full ChatResponse object with metadata
+GET http://localhost:8080/jokes-with-response?message=Tell me a dad joke about computers
+
+###
+
+# ============================================================================
+# 2. ASYNC & STREAMING EXAMPLES
+# ============================================================================
+
+### Async Streaming Chat
+# AsyncChatController - Streams response about Charleston SC attractions
+GET http://localhost:8080/stream
+Accept: text/event-stream
+
+###
+
+# ============================================================================
+# 3. PROMPT ENGINEERING & SYSTEM INSTRUCTIONS
+# ============================================================================
+
+### Article Generator - Default Topic
+# ArticleController - Generate 500-word blog post about JDK Virtual Threads
+GET http://localhost:8080/posts/new
+
+###
+
+### Article Generator - Custom Topic
+# ArticleController - Generate 500-word blog post about Spring AI
+GET http://localhost:8080/posts/new?topic=Spring AI Framework
+
+###
+
+### Article Generator - Java Topic
+# ArticleController - Generate blog post about modern Java features
+GET http://localhost:8080/posts/new?topic=Java Records and Pattern Matching
+
+###
+
+# ============================================================================
+# 4. OUTPUT STRUCTURES & STRUCTURED RESPONSES
+# ============================================================================
+
+### Vacation Plan - Unstructured
+# VacationPlan - Returns unstructured text vacation plan for Montreal
+GET http://localhost:8080/vacation/unstructured
+
+###
+
+### Vacation Plan - Structured (Default)
+# VacationPlan - Returns structured JSON itinerary for Cleveland, OH
+GET http://localhost:8080/vacation/structured
+
+###
+
+### Vacation Plan - Structured (Paris)
+# VacationPlan - Returns structured JSON itinerary for Paris
+GET http://localhost:8080/vacation/structured?destination=Paris, France
+
+###
+
+### Vacation Plan - Structured (Tokyo)
+# VacationPlan - Returns structured JSON itinerary for Tokyo
+GET http://localhost:8080/vacation/structured?destination=Tokyo, Japan
+
+###
+
+# ============================================================================
+# 5. MEMORY & STATEFUL CONVERSATIONS
+# ============================================================================
+
+### Stateful Chat - First Message
+# StatefulController - Start conversation with name introduction
+GET http://localhost:8080/memory?message=My name is John and I like programming
+
+###
+
+### Stateful Chat - Follow-up
+# StatefulController - Follow-up question (remembers context from previous message)
+GET http://localhost:8080/memory?message=What is my name?
+
+###
+
+### Stateful Chat - Another Follow-up
+# StatefulController - Another follow-up (tests memory persistence)
+GET http://localhost:8080/memory?message=What did I say I like?
+
+###
+
+# ============================================================================
+# 6. TOOLS & FUNCTION CALLING
+# ============================================================================
+
+### DateTime Tools - Tomorrow's Date
+# DatTimeChatController - Asks "What day is tomorrow?" using datetime tools
+GET http://localhost:8080/tools
+
+###
+
+### Weather Alerts - California
+# WeatherController - Get weather alerts for California
+GET http://localhost:8080/weather/alerts?message=What are the weather alerts for California?
+
+###
+
+### Weather Alerts - New York
+# WeatherController - Get weather alerts for New York state
+GET http://localhost:8080/weather/alerts?message=Are there any weather alerts in NY?
+
+###
+
+### Weather Alerts - Specific Location
+# WeatherController - Get weather forecast for specific location
+GET http://localhost:8080/weather/alerts?message=What's the weather forecast for Cleveland?
+
+###
+
+### Task Management - Create Task
+# TaskManagementController - Create a new task
+GET http://localhost:8080/tasks?message=Create a task titled "Write documentation" assigned to Alice
+
+###
+
+### Task Management - Update Status
+# TaskManagementController - Update task status
+GET http://localhost:8080/tasks?message=Update task 1 status to IN_PROGRESS
+
+###
+
+### Task Management - Reassign Task
+# TaskManagementController - Reassign task to different person
+GET http://localhost:8080/tasks?message=Assign task 1 to Bob
+
+###
+
+### Task Management - Complete Task
+# TaskManagementController - Mark task as completed
+GET http://localhost:8080/tasks?message=Mark task 1 as completed
+
+###
+
+# ============================================================================
+# 7. SAFEGUARDS & GUARDRAILS
+# ============================================================================
+
+### Input Validation Guard - Default (Banking)
+# InputValidationGuardController - Valid banking question
+GET http://localhost:8080/input-validation?message=What is the capital of the state of California?
+
+###
+
+### Input Validation Guard - Valid Banking Question
+# InputValidationGuardController - Question within scope (banking)
+GET http://localhost:8080/input-validation?message=How do I open a savings account?
+
+###
+
+### Input Validation Guard - Out of Scope
+# InputValidationGuardController - Question outside banking scope (should refuse)
+GET http://localhost:8080/input-validation?message=What is the weather today?
+
+###
+
+### Fact Checking Guard
+# FactCheckingGuardController - Demonstrates guardrails against hallucination
+GET http://localhost:8080/fact-checking
+
+###
+
+# ============================================================================
+# 8. ADVISORS & CROSS-CUTTING CONCERNS
+# ============================================================================
+
+### Logging Advisor Example
+# LoggingController - Demonstrates custom advisor for logging
+GET http://localhost:8080/advisor
+
+###
+
+# ============================================================================
+# 9. MODEL CONFIGURATION & OPTIONS
+# ============================================================================
+
+### Chat Options Configuration
+# OptionsController - Demonstrates custom model options (temperature, max tokens)
+GET http://localhost:8080/options
+
+###
+
+# ============================================================================
+# 10. RAG (RETRIEVAL-AUGMENTED GENERATION)
+# ============================================================================
+
+### RAG - Query Models (Default)
+# ModelsController - Query vectorstore for OpenAI models with context windows
+GET http://localhost:8080/rag/models
+
+###
+
+### RAG - Query Models (Custom)
+# ModelsController - Custom query about AI models
+GET http://localhost:8080/rag/models?message=Which models have the largest context window?
+
+###
+
+### RAG - Query Models (Anthropic)
+# ModelsController - Query about specific company's models
+GET http://localhost:8080/rag/models?message=Tell me about Anthropic's models
+
+###
+
+### RAG - Query Models (Comparison)
+# ModelsController - Compare different models
+GET http://localhost:8080/rag/models?message=Compare the context windows of GPT-4 and Claude models
+
+###
