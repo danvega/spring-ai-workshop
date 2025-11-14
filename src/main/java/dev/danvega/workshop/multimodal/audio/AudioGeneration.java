@@ -3,8 +3,8 @@ package dev.danvega.workshop.multimodal.audio;
 import org.springframework.ai.openai.OpenAiAudioSpeechModel;
 import org.springframework.ai.openai.OpenAiAudioSpeechOptions;
 import org.springframework.ai.openai.api.OpenAiAudioApi;
-import org.springframework.ai.openai.audio.speech.SpeechPrompt;
-import org.springframework.ai.openai.audio.speech.SpeechResponse;
+import org.springframework.ai.audio.tts.TextToSpeechPrompt;
+import org.springframework.ai.audio.tts.TextToSpeechResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +28,11 @@ public class AudioGeneration {
                 .model("tts-1-hd") // or "tts-1-hd" for higher quality
                 .voice(OpenAiAudioApi.SpeechRequest.Voice.ALLOY) // ALLOY, ECHO, FABLE, ONYX, NOVA, SHIMMER
                 .responseFormat(OpenAiAudioApi.SpeechRequest.AudioResponseFormat.MP3)
-                .speed(1.0f) // 0.25 to 4.0
+                .speed(1.0) // 0.25 to 4.0
                 .build();
 
-        SpeechPrompt speechPrompt = new SpeechPrompt(text, options);
-        SpeechResponse response = audioSpeechModel.call(speechPrompt);
+        TextToSpeechPrompt speechPrompt = new TextToSpeechPrompt(text, options);
+        TextToSpeechResponse response = audioSpeechModel.call(speechPrompt);
 
         byte[] audioBytes = response.getResult().getOutput();
 
