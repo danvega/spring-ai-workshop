@@ -250,3 +250,25 @@ GET http://localhost:8080/rag/models?message=Tell me about Anthropic's models
 GET http://localhost:8080/rag/models?message=Compare the context windows of GPT-4 and Claude models
 
 ###
+
+# ============================================================================
+# 11. MULTIMODAL - AUDIO GENERATION (TEXT-TO-SPEECH)
+# ============================================================================
+
+### Audio Generation - Default Text
+# AudioGeneration - Generate speech audio from default text
+GET http://localhost:8080/speak
+
+###
+
+### Audio Generation - Custom Text
+# AudioGeneration - Generate speech audio from custom text
+GET http://localhost:8080/speak?text=Hello from Spring AI! Text to speech is amazing.
+
+###
+
+### Audio Generation - Java Message
+# AudioGeneration - Generate speech about Java development
+GET http://localhost:8080/speak?text=Spring Framework makes building enterprise Java applications easy and enjoyable.
+
+###
