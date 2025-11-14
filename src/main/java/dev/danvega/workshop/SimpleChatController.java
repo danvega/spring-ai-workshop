@@ -14,10 +14,10 @@ public class SimpleChatController {
                 .build();
     }
 
-    @GetMapping("/boeing")
+    @GetMapping("/java")
     public String chat() {
         return chatClient.prompt()
-                .user("Tell me an intresting fact about Beoing")
+                .user("Tell me an intresting fact about Java")
                 .call()
                 .content();
     }
