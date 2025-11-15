@@ -16,7 +16,7 @@ public class LoggingController {
     @GetMapping("/advisor")
     public String logging() {
         return chatClient.prompt()
-                .advisors(SimpleLoggingAdvisor.builder().build())
+                .advisors(new EmojiLoggingAdvisor())
                 .user("How long would it take to drive from Cleveland OH to Hilton Head, SC?")
                 .call()
                 .content();
