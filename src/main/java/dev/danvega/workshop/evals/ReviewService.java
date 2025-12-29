@@ -4,6 +4,8 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class ReviewService {
 
@@ -20,11 +22,12 @@ public class ReviewService {
                 Classify the sentiment of the following text as POSITIVE, NEGATIVE, or NEUTRAL. \
                 Your response must be only one of these three words.""";
 
-        return chatClient.prompt()
-                .system(systemPrompt)
-                .user(review)
-                .call()
-                .entity(Sentiment.class);
+        return Objects.requireNonNull(chatClient.prompt()
+                        .system(systemPrompt)
+                        .user(review)
+                        .call()
+                        .entity(SentimentResponse.class))
+                .getSentiment();
     }
 
 }
