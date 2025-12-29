@@ -1,6 +1,7 @@
 package dev.danvega.workshop;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class SimpleChatController {
     @GetMapping("/java")
     public String chat() {
         return chatClient.prompt()
-                .user("Tell me an intresting fact about Java")
+                .user("Tell me an interesting fact about Java")
                 .call()
                 .content();
     }

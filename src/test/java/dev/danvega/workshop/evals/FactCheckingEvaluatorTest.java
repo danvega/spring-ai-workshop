@@ -8,8 +8,11 @@ import org.springframework.ai.document.Document;
 import org.springframework.ai.evaluation.EvaluationRequest;
 import org.springframework.ai.evaluation.EvaluationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.ollama.OllamaContainer;
@@ -20,7 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @Testcontainers
+@Import(ChatClientTestConfig.class)
 public class FactCheckingEvaluatorTest {
 
     private static final String OLLAMA_IMAGE = "ollama/ollama:0.1.48";
@@ -30,12 +35,13 @@ public class FactCheckingEvaluatorTest {
     @ServiceConnection(name = "spring.ai.ollama.base-url")
     static final OllamaContainer ollama = new OllamaContainer(OLLAMA_IMAGE);
 
+    @Autowired
     private FactCheckingEvaluator factCheckingEvaluator;
 
-    @BeforeEach
-    void setUp(@Autowired ChatClient.Builder builder) {
-        factCheckingEvaluator = new FactCheckingEvaluator(builder);
-    }
+//    @BeforeEach
+//    void setUp(@Autowired FactCheckingEvaluator evaluator) {
+//        factCheckingEvaluator = evaluator;
+//    }
 
     @Test
     void passes_when_claim_is_true() {
