@@ -11,7 +11,7 @@ public class ReviewService {
 
     public ReviewService(ChatClient.Builder builder) {
         this.chatClient = builder
-                .defaultOptions(OpenAiChatOptions.builder().temperature(0.1d))
+                .defaultOptions(OpenAiChatOptions.builder().temperature(0.1d).build())
                 .build();
     }
 
