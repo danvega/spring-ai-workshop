@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StatefulController {
 
+    private final ChatMemory chatMemory;
     private final ChatClient chatClient;
 
     public StatefulController(ChatClient.Builder builder, ChatMemory chatMemory) {
         this.chatClient = builder
                 .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
                 .build();
+
+        this.chatMemory = chatMemory;
     }
 
     @GetMapping("/memory")
