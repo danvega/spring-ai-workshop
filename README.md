@@ -60,7 +60,7 @@ curl "localhost:8080/router?message=What is the capital of Ohio"
 | `evals` | Testing AI output with evaluators ([README](src/main/java/dev/danvega/workshop/evals/README.md)) | test sources |
 | `observability` | Metrics for AI calls ([README](src/main/java/dev/danvega/workshop/observability/README.md)) | actuator |
 
-There is also a minimal `SimpleChatController` at `/java` in the root package. The `agents` and `multiplellms` packages hold notes in their READMEs.
+There is also a minimal `SimpleChatController` in the root package: `/chat` returns `.content()` and `/chat-response` returns the full `.chatResponse()` with metadata. The `agents` and `multiplellms` packages hold notes in their READMEs.
 
 ## Testing
 

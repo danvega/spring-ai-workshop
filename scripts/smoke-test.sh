@@ -23,7 +23,8 @@ check() {
 }
 
 check "chat /"                  "/?message=Tell%20me%20a%20dad%20joke%20about%20dogs"
-check "chat /java"              "/java"
+check "chat /chat"              "/chat"
+check "chat /chat-response"     "/chat-response"
 check "chat /jokes-by-topic"    "/jokes-by-topic?topic=coffee"
 check "chat /jokes-with-response" "/jokes-with-response"
 check "chat-model /fact"        "/chat-model/fact"

@@ -5,8 +5,14 @@
 # ============================================================================
 
 ### Simple Chat - Java Fact
-# SimpleChatController - Returns an interesting fact about Java
-GET http://localhost:8080/java
+# SimpleChatController - Returns an interesting fact about Java as plain text
+GET http://localhost:8080/chat
+
+###
+
+### Simple Chat - Full ChatResponse
+# SimpleChatController - Same prompt, but the full ChatResponse with metadata
+GET http://localhost:8080/chat-response
 
 ###
 
