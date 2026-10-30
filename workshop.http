@@ -272,3 +272,23 @@ GET http://localhost:8080/speak?text=Hello from Spring AI! Text to speech is ama
 GET http://localhost:8080/speak?text=Spring Framework makes building enterprise Java applications easy and enjoyable.
 
 ###
+# ============================================================================
+# MODEL ROUTER (Jev picks the cheapest capable model)
+# ============================================================================
+
+### Easy question routes to the economy tier
+GET http://localhost:8080/router?message=What is the capital of Ohio
+
+###
+
+### Hard question routes to the premium tier
+GET http://localhost:8080/router?message=Design a rate limiter for a multi-region API and explain the tradeoffs
+
+###
+
+# ============================================================================
+# PII MASKING GUARDRAIL
+# ============================================================================
+
+### PII is masked before the prompt leaves the app
+GET http://localhost:8080/pii-masking

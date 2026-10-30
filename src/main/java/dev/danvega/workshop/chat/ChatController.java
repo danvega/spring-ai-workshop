@@ -32,7 +32,7 @@ public class ChatController {
                 .content();
     }
 
-    @GetMapping("jokes-with-response")
+    @GetMapping("/jokes-with-response")
     public ChatResponse jokeWithResponse(@RequestParam(value = "message", defaultValue = "Tell me a dad joke about computers") String message) {
         return chatClient.prompt()
                 .user(message)

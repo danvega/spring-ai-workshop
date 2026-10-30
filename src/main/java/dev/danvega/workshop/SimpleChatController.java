@@ -17,7 +17,7 @@ public class SimpleChatController {
     @GetMapping("/java")
     public String chat() {
         return chatClient.prompt()
-                .user("Tell me an intresting fact about Java")
+                .user("Tell me an interesting fact about Java")
                 .call()
                 .content();
     }
