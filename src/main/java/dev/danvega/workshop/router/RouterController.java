@@ -1,7 +1,7 @@
 package dev.danvega.workshop.router;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.openai.responses.OpenAiResponsesChatOptions;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +24,7 @@ public class RouterController {
         var decision = router.route(message);
         var answer = chatClient.prompt()
                 .user(message)
-                .options(OpenAiChatOptions.builder().model(decision.model().id()))
+                .options(OpenAiResponsesChatOptions.builder().model(decision.model().id()))
                 .call()
                 .content();
         return new RoutedAnswer(decision.model().id(), decision.model().tier(), decision.confidence(),

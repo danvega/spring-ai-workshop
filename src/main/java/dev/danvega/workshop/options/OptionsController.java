@@ -2,7 +2,7 @@ package dev.danvega.workshop.options;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.openai.responses.OpenAiResponsesChatOptions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,10 +13,10 @@ public class OptionsController {
 
     public OptionsController(ChatClient.Builder builder) {
 
-        OpenAiChatOptions.Builder options = OpenAiChatOptions.builder()
-                .model("gpt-5")
-                .temperature(1.0)
-                .maxCompletionTokens(500);
+        OpenAiResponsesChatOptions.Builder options = OpenAiResponsesChatOptions.builder()
+                .model("gpt-5.4-mini")
+                .reasoningEffort("low")
+                .maxOutputTokens(500);
 
         this.chatClient = builder
                 .defaultOptions(options)

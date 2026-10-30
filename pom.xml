@@ -28,7 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>26</java.version>
-		<spring-ai.version>2.0.2</spring-ai.version>
+		<spring-ai.version>2.1.0-M1</spring-ai.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -53,6 +53,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		<!-- Official OpenAI SDK client, used by the chatmodel demo to keep a
+		     Chat Completions model alongside the app's Responses API model -->
+		<dependency>
+			<groupId>com.openai</groupId>
+			<artifactId>openai-java-client-okhttp</artifactId>
+			<version>4.49.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -74,6 +81,13 @@
 				<version>${spring-ai.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<!-- 2.1.0-M1 resolves this module at 4.38.0 while the generator is 5.0.0;
+			     Spring AI's JsonSchemaGenerator needs the 5.0.0 class names -->
+			<dependency>
+				<groupId>com.github.victools</groupId>
+				<artifactId>jsonschema-module-jackson</artifactId>
+				<version>5.0.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

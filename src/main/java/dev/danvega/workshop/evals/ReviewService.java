@@ -1,7 +1,7 @@
 package dev.danvega.workshop.evals;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.openai.OpenAiChatOptions;
+import org.springframework.ai.openai.responses.OpenAiResponsesChatOptions;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,14 +11,14 @@ public class ReviewService {
 
     public ReviewService(ChatClient.Builder builder) {
         this.chatClient = builder
-                .defaultOptions(OpenAiChatOptions.builder().temperature(0.1d))
+                .defaultOptions(OpenAiResponsesChatOptions.builder().reasoningEffort("low"))
                 .build();
     }
 
     public Sentiment classifySentiment(String review) {
         String systemPrompt = """
                 Classify the sentiment of the following text as POSITIVE, NEGATIVE, or NEUTRAL. \
-                Your response must be only one of these three words.""";
+                Respond in the requested format.""";
 
         return chatClient.prompt()
                 .system(systemPrompt)

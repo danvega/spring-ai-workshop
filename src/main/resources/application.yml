@@ -8,8 +8,9 @@ spring:
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:
-        options:
-          model: gpt-4o
+        api: responses
+      responses:
+        model: gpt-6-astra
 
 logging:
   level:
