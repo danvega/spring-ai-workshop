@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: ai-workshop
+  threads:
+    virtual:
+      enabled: true
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-4o
+
+logging:
+  level:
+    dev.danvega.workshop: DEBUG
+
+# Model router demo (router package). The Jev starter reads TYPESAFE_API_KEY.
+router:
+  fallback: gpt-5.4
+  confidence-threshold: 0.65
+  models:
+    - id: gpt-5.4-nano
+      name: GPT-5.4 nano
+      tier: economy
+      description: Simple factual questions, classification, extraction, short summaries, and straightforward rewrites.
+    - id: gpt-5.4-mini
+      name: GPT-5.4 mini
+      tier: balanced
+      description: Everyday coding, debugging with clear scope, nuanced writing, and analysis.
+    - id: gpt-5.4
+      name: GPT-5.4
+      tier: premium
+      description: Difficult multi-step reasoning, subtle bugs, mathematical analysis, and complex design tradeoffs.
