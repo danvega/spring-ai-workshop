@@ -8,7 +8,8 @@ A Spring AI workshop repo used in live talks and presentations. It is a collecti
 
 ## Stack
 
-- Java 26, Spring Boot 4.1.2, Spring AI 2.0.2 (GA line, no milestones)
+- Java 26, Spring Boot 4.1.2, Spring AI 2.1.0-M1 (a milestone: APIs may shift before GA)
+- Chat uses OpenAI's Responses API (`spring.ai.openai.chat.api: responses`), default model `gpt-6-astra`
 - Maven with the wrapper: always `./mvnw`, never a global `mvn`
 - One local snapshot dependency: `dev.danvega:jev-spring-boot-starter:0.3.0-SNAPSHOT`. If it is missing, install it from `~/dev/jev/jev-spring-boot-starter` with `./mvnw install`.
 
@@ -32,7 +33,10 @@ One package per demo topic under `src/main/java/dev/danvega/workshop/`: `chat`, 
 
 - Demos are plain `@RestController` classes with GET endpoints and sensible default `@RequestParam` values, so they can be hit from a browser or curl on stage.
 - Build `ChatClient` from the injected `ChatClient.Builder` in the constructor.
-- Spring AI 2.0 API: `ChatClient` option methods take the options builder itself, for example `.options(OpenAiChatOptions.builder().model(...))`, not a built object.
+- `ChatClient` option methods take the options builder itself, not a built object.
+- Per-request options must be `OpenAiResponsesChatOptions` (package `org.springframework.ai.openai.responses`). The Responses model silently ignores `OpenAiChatOptions`.
+- Reasoning models such as `gpt-6-astra` reject `temperature`; use `reasoningEffort` (low, medium, high, xhigh, max).
+- The Responses API has no `n` option. The chatmodel taglines demo builds its own Completions-based `OpenAiChatModel` with the official SDK client; never register a second `ChatModel` bean, that breaks `ChatClient` auto-configuration.
 - New demo packages get a short `README.md` with what it shows, setup, and a curl example.
 - Prose style for READMEs and docs: no em dashes, short sentences, plain language.
 

@@ -2,7 +2,7 @@
 
 Hands-on demos for building AI applications with Spring Boot and Spring AI. Each package under `dev.danvega.workshop` shows one feature: chat, prompts, structured output, memory, advisors, tools, RAG, guardrails, multimodal, evals, and model routing. Every demo is a small REST endpoint you can hit from a browser, curl, or the included `workshop.http` file.
 
-Tested with Java 26, Spring Boot 4.1.2, and Spring AI 2.0.2.
+Tested with Java 26, Spring Boot 4.1.2, and Spring AI 2.1.0-M1. Chat goes through OpenAI's Responses API with `gpt-6-astra` as the default model, configured in `application.yml`.
 
 ## What you need
 
@@ -44,12 +44,12 @@ curl "localhost:8080/router?message=What is the capital of Ohio"
 | Package | Shows | Endpoints |
 | --- | --- | --- |
 | `chat` | ChatClient basics, `.content()` vs `.chatResponse()` | `/`, `/jokes-by-topic`, `/jokes-with-response` |
-| `chatmodel` | ChatModel API, usage metadata, multiple generations | `/fact`, `/taglines` |
+| `chatmodel` | ChatModel API, usage metadata, and n=3 generations on a self-built Completions model | `/chat-model/fact`, `/chat-model/taglines` |
 | `prompt` | Prompt templates loaded from resources | `/posts/new` |
 | `output` | Structured output into Java records | `/vacation/structured`, `/vacation/unstructured` |
 | `options` | Configuring model options ([README](src/main/java/dev/danvega/workshop/options/README.md)) | `/options` |
 | `memory` | Chat memory and stateful conversations | `/memory` |
-| `advisor` | Custom advisors: tool logging, token counting | `/advisor` |
+| `advisor` | Custom advisors: token counting, and an on-topic guard that answers off-topic prompts itself | `/advisor`, `/support` |
 | `async` | Streaming responses | `/stream` |
 | `multimodal` | Image to text, image generation, text to speech | `/image-to-text`, `/generate-image`, `/speak` |
 | `byod` | Bring your own data by stuffing the prompt | `/models`, `/models/stuff-the-prompt` |
@@ -73,5 +73,7 @@ The eval tests call the live OpenAI API, so they need `OPENAI_API_KEY` and can f
 ## Good to know
 
 - This is demo code for a workshop, not production code.
-- Configuration lives in [application.yml](src/main/resources/application.yml). The default chat model is set there.
+- Configuration lives in [application.yml](src/main/resources/application.yml). The default chat model is set there, and `spring.ai.openai.chat.api: responses` switches Spring AI to the Responses API.
+- Spring AI 2.1.0-M1 is a milestone. Per-request options use `OpenAiResponsesChatOptions`; the old `OpenAiChatOptions` is silently ignored by the Responses model. The pom pins `jsonschema-module-jackson` to 5.0.0 to fix a mixed-version resolution in the milestone.
+- Reasoning models like `gpt-6-astra` reject `temperature` and support `reasoning-effort` values low through max.
 - Slides for the talk are in the [slides](slides) folder.

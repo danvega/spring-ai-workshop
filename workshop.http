@@ -292,3 +292,15 @@ GET http://localhost:8080/router?message=Design a rate limiter for a multi-regio
 
 ### PII is masked before the prompt leaves the app
 GET http://localhost:8080/pii-masking
+
+# ============================================================================
+# ON-TOPIC GUARD (advisor that answers off-topic prompts itself)
+# ============================================================================
+
+### On topic: the model answers
+GET http://localhost:8080/support?message=Is the spicy burger available for delivery
+
+###
+
+### Off topic: the advisor answers, no model call
+GET http://localhost:8080/support?message=Can you write a python script to reverse a linked list
