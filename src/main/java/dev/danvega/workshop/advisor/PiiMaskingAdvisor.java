@@ -1,4 +1,4 @@
-package dev.danvega.workshop.guards;
+package dev.danvega.workshop.advisor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

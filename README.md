@@ -49,12 +49,12 @@ curl "localhost:8080/router?message=What is the capital of Ohio"
 | `output` | Structured output into Java records | `/vacation/structured`, `/vacation/unstructured` |
 | `options` | Configuring model options ([README](src/main/java/dev/danvega/workshop/options/README.md)) | `/options` |
 | `memory` | Chat memory and stateful conversations | `/memory` |
-| `advisor` | Custom advisors: token counting, and an on-topic guard that answers off-topic prompts itself | `/advisor`, `/support` |
+| `advisor` | Custom advisors, one per superpower: observe (token counting), transform (PII masking), short-circuit (on-topic guard) | `/advisor`, `/pii-masking`, `/support` |
 | `async` | Streaming responses | `/stream` |
 | `multimodal` | Image to text, image generation, text to speech | `/image-to-text`, `/generate-image`, `/speak` |
 | `byod` | Bring your own data by stuffing the prompt | `/models`, `/models/stuff-the-prompt` |
 | `rag` | Retrieval augmented generation over `data/models.json` | `/rag/models` |
-| `guards` | Input validation, fact checking, PII masking advisors | `/input-validation`, `/fact-checking`, `/pii-masking` |
+| `guards` | Guardrails through system prompts: input validation and fact checking | `/input-validation`, `/fact-checking` |
 | `tools` | Tool calling: date and time, task actions, weather ([README](src/main/java/dev/danvega/workshop/tools/action/README.md)) | `/tools`, `/tasks`, `/weather/alerts` |
 | `router` | Jev picks the cheapest capable model per prompt ([README](src/main/java/dev/danvega/workshop/router/README.md)) | `/router` |
 | `evals` | Testing AI output with evaluators ([README](src/main/java/dev/danvega/workshop/evals/README.md)) | test sources |
