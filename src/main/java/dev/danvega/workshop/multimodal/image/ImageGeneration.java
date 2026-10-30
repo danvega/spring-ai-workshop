@@ -5,12 +5,12 @@ import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.image.ImageResponse;
 import org.springframework.ai.openai.OpenAiImageModel;
 import org.springframework.ai.openai.OpenAiImageOptions;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.util.Base64;
 
 @RestController
 public class ImageGeneration {
@@ -21,27 +21,23 @@ public class ImageGeneration {
         this.imageModel = imageModel;
     }
 
-    @GetMapping("/generate-image")
-    public ResponseEntity<Map<String, String>> generateImage(
+    /**
+     * The gpt-image models return the image as base64 instead of a URL, so this
+     * endpoint decodes it and serves the PNG directly. Open it in a browser.
+     * gpt-image-1-mini keeps a live demo fast; swap the model for higher quality.
+     */
+    @GetMapping(value = "/generate-image", produces = MediaType.IMAGE_PNG_VALUE)
+    public byte[] generateImage(
             @RequestParam(defaultValue = "A beautiful sunset over mountains") String prompt) {
 
         ImageOptions options = OpenAiImageOptions.builder()
-                .model("dall-e-3")
+                .model("gpt-image-1-mini")
                 .width(1024)
                 .height(1024)
-                .quality("hd") // or "hd"
-                .style("vivid") // or "natural"
                 .build();
 
-        ImagePrompt imagePrompt = new ImagePrompt(prompt, options);
-        ImageResponse response = imageModel.call(imagePrompt);
-
-        String imageUrl = response.getResult().getOutput().getUrl();
-
-        return ResponseEntity.ok(Map.of(
-                "prompt", prompt,
-                "imageUrl", imageUrl
-        ));
+        ImageResponse response = imageModel.call(new ImagePrompt(prompt, options));
+        return Base64.getDecoder().decode(response.getResult().getOutput().getB64Json());
     }
 
 }

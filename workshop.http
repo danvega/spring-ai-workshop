@@ -304,3 +304,43 @@ GET http://localhost:8080/support?message=Is the spicy burger available for deli
 
 ### Off topic: the advisor answers, no model call
 GET http://localhost:8080/support?message=Can you write a python script to reverse a linked list
+
+# ============================================================================
+# CHAT MODEL API (lower level than ChatClient)
+# ============================================================================
+
+### Usage metadata from a ChatModel call
+GET http://localhost:8080/chat-model/fact
+
+###
+
+### Three generations in one call (Chat Completions feature)
+GET http://localhost:8080/chat-model/taglines
+
+###
+
+# ============================================================================
+# BRING YOUR OWN DATA
+# ============================================================================
+
+### Without your data: the model cannot know current models
+GET http://localhost:8080/models
+
+###
+
+### Stuff the prompt: same question with the data included
+GET http://localhost:8080/models/stuff-the-prompt
+
+###
+
+# ============================================================================
+# MULTIMODAL: IMAGES
+# ============================================================================
+
+### Describe the bundled image
+GET http://localhost:8080/image-to-text
+
+###
+
+### Generate an image (slow, costs more)
+GET http://localhost:8080/generate-image

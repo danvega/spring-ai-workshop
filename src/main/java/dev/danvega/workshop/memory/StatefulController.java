@@ -22,9 +22,11 @@ public class StatefulController {
     }
 
     @GetMapping("/memory")
-    public String home(@RequestParam String message) {
+    public String home(@RequestParam String message,
+                       @RequestParam(defaultValue = "default") String conversation) {
         return chatClient.prompt()
                 .user(message)
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversation))
                 .call()
                 .content();
     }
