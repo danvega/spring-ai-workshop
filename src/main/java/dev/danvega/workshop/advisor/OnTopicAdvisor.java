@@ -22,7 +22,7 @@ import java.util.Set;
  *
  * It is a word check, not mind reading. A real app would combine it with a system prompt
  * and maybe a classifier model. See the famous McDonald's chatbot screenshot in
- * src/main/resources/images for what happens without one.
+ * the images folder for what happens without one.
  */
 public class OnTopicAdvisor implements CallAdvisor {
 
