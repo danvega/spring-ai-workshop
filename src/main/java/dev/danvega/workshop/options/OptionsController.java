@@ -14,7 +14,7 @@ public class OptionsController {
     public OptionsController(ChatClient.Builder builder) {
 
         OpenAiResponsesChatOptions.Builder options = OpenAiResponsesChatOptions.builder()
-                .model("gpt-5.4-mini")
+                .model("gpt-6-luna")
                 .reasoningEffort("low")
                 .maxOutputTokens(500);
 
