@@ -107,6 +107,18 @@ GET http://localhost:8080/vacation/structured?destination=Tokyo, Japan
 
 ###
 
+### Talk Reviewer (Lab 2)
+# TalkReviewController - Prompt template + system message + structured output
+POST http://localhost:8080/talks/review
+Content-Type: application/json
+
+{
+  "title": "AI for Java Developers",
+  "description": "Java developers don't need Python to build AI apps. In this hands-on workshop you'll build a Spring Boot app with Spring AI, one feature at a time: chat, prompt templates, structured output, tools, and MCP."
+}
+
+###
+
 # ============================================================================
 # 5. MEMORY & STATEFUL CONVERSATIONS
 # ============================================================================

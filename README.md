@@ -47,6 +47,7 @@ curl "localhost:8080/router?message=What is the capital of Ohio"
 | `chatmodel` | ChatModel API, usage metadata, and n=3 generations on a self-built Completions model | `/chat-model/fact`, `/chat-model/taglines` |
 | `prompt` | Prompt templates loaded from resources | `/posts/new` |
 | `output` | Structured output into Java records | `/vacation/structured`, `/vacation/unstructured` |
+| `talks` | Lab 2: a prompt template, a system message, and structured output together in one endpoint | `POST /talks/review` |
 | `options` | Configuring model options ([README](src/main/java/dev/danvega/workshop/options/README.md)) | `/options` |
 | `memory` | Chat memory and stateful conversations | `/memory` |
 | `advisor` | Custom advisors, one per superpower: observe (token counting), transform (PII masking), short-circuit (on-topic guard) | `/advisor`, `/pii-masking`, `/support` |
