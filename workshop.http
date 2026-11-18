@@ -119,6 +119,33 @@ Content-Type: application/json
 
 ###
 
+### Talk Coach (Lab 3), 1. Share your talk
+# TalkCoachController - memory + SimpleLoggerAdvisor + a word count tool. Plain text body.
+POST http://localhost:8080/talks/coach
+Content-Type: text/plain
+
+Here's my talk. Title: AI Is the Future. Description: Everyone is talking about AI. Come learn why AI matters.
+
+### Talk Coach, 2. Memory remembers your talk
+POST http://localhost:8080/talks/coach
+Content-Type: text/plain
+
+Make the title punchier.
+
+### Talk Coach, 3. The model calls countWords
+POST http://localhost:8080/talks/coach
+Content-Type: text/plain
+
+How many words is my description? Is it under 100 words?
+
+### Talk Coach, 4. A new conversation starts empty
+POST http://localhost:8080/talks/coach?conversation=new
+Content-Type: text/plain
+
+What's my talk title?
+
+###
+
 # ============================================================================
 # 5. MEMORY & STATEFUL CONVERSATIONS
 # ============================================================================
@@ -138,6 +165,84 @@ GET http://localhost:8080/memory?message=What is my name?
 ### Stateful Chat - Another Follow-up
 # StatefulController - Another follow-up (tests memory persistence)
 GET http://localhost:8080/memory?message=What did I say I like?
+
+###
+
+######## Short-term memory: one conversation, replayed by the advisor ########
+
+### S1. Tell it your name
+# ShortTermMemoryController
+POST http://localhost:8080/memory/short-term/s1
+Content-Type: application/json
+
+{
+  "message": "Hi, my name is Maria. Answer in one short sentence."
+}
+
+### S2. Ask for it back. It remembers, because the advisor replays S1.
+POST http://localhost:8080/memory/short-term/s1
+Content-Type: application/json
+
+{
+  "message": "What's my name?"
+}
+
+### S3. Look inside the repository: 4 messages (2 user, 2 assistant)
+GET http://localhost:8080/memory/short-term/s1
+
+### S4. A new conversation ID starts empty. It has no idea.
+POST http://localhost:8080/memory/short-term/s2
+Content-Type: application/json
+
+{
+  "message": "What's my name?"
+}
+
+### S5. Restart the app, then look again: empty. The default repository is a Map in the JVM.
+GET http://localhost:8080/memory/short-term/s1
+
+######## Long-term memory: Markdown notes the model writes, one folder per user ########
+# Start clean: rm -rf memories. Keep the memories/ folder open in the IDE. The files appear on L1.
+
+### L1. Conversation 1: Maria tells us about her trip. Watch memories/maria/ appear.
+# LongTermMemoryController
+POST http://localhost:8080/memory/long-term/maria
+Content-Type: application/json
+
+{
+  "conversationId": "trip",
+  "message": "I'm traveling to Portugal next week. Please text me about anything, don't email."
+}
+
+### L2. Conversation 2, new conversation ID: the model reads her files and recalls Portugal and texting
+POST http://localhost:8080/memory/long-term/maria
+Content-Type: application/json
+
+{
+  "conversationId": "packing",
+  "message": "What should I pack for my trip? And how will you remind me?"
+}
+
+### L3. Another user, same question: James's tools only reach memories/james/
+POST http://localhost:8080/memory/long-term/james
+Content-Type: application/json
+
+{
+  "conversationId": "packing",
+  "message": "What should I pack for my trip? And how will you remind me?"
+}
+
+### L4. Forget Maria: her folder and her conversations are deleted
+DELETE http://localhost:8080/memory/long-term/maria
+
+### L5. Ask again in conversation 2: nothing is recalled
+POST http://localhost:8080/memory/long-term/maria
+Content-Type: application/json
+
+{
+  "conversationId": "packing",
+  "message": "What should I pack for my trip? And how will you remind me?"
+}
 
 ###
 

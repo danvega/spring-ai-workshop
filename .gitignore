@@ -34,3 +34,6 @@ build/
 
 ### macOS ###
 .DS_Store
+
+### Memory demo: long-term memory files, one folder per user ###
+/memories/

@@ -47,9 +47,9 @@ curl "localhost:8080/router?message=What is the capital of Ohio"
 | `chatmodel` | ChatModel API, usage metadata, and n=3 generations on a self-built Completions model | `/chat-model/fact`, `/chat-model/taglines` |
 | `prompt` | Prompt templates loaded from resources | `/posts/new` |
 | `output` | Structured output into Java records | `/vacation/structured`, `/vacation/unstructured` |
-| `talks` | Lab 2: a prompt template, a system message, and structured output together in one endpoint | `POST /talks/review` |
+| `talks` | Lab 2: a prompt template, a system message, and structured output together in one endpoint. Lab 3: a talk coach with chat memory, `SimpleLoggerAdvisor`, and a word count `@Tool` | `POST /talks/review`, `POST /talks/coach` |
 | `options` | Configuring model options ([README](src/main/java/dev/danvega/workshop/options/README.md)) | `/options` |
-| `memory` | Chat memory and stateful conversations | `/memory` |
+| `memory` | Chat memory: short-term (the last messages of one conversation) and long-term (Markdown notes the model writes with `AutoMemoryTools`) ([README](src/main/java/dev/danvega/workshop/memory/README.md)) | `/memory`, `/memory/short-term/{id}`, `/memory/long-term/{userId}` |
 | `advisor` | The built-in `SimpleLoggerAdvisor`, then custom advisors, one per superpower: observe (token counting), transform (PII masking), short-circuit (on-topic guard) | `/advisor/logging`, `/advisor`, `/pii-masking`, `/support` |
 | `async` | Streaming responses | `/stream` |
 | `multimodal` | Image to text, image generation, text to speech | `/image-to-text`, `/generate-image`, `/speak` |

@@ -43,6 +43,12 @@
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-vector-store-advisor</artifactId>
 		</dependency>
+		<!-- AutoMemoryTools for the long-term memory demo (memory package) -->
+		<dependency>
+			<groupId>org.springaicommunity</groupId>
+			<artifactId>spring-ai-agent-utils</artifactId>
+			<version>0.13.0</version>
+		</dependency>
 		<!-- Local snapshot: install from ~/dev/jev/jev-spring-boot-starter with ./mvnw install -->
 		<dependency>
 			<groupId>dev.danvega</groupId>
