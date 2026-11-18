@@ -375,7 +375,7 @@ GET http://localhost:8080/rag/models?message=Tell me about Anthropic's models
 
 ### RAG - Query Models (Comparison)
 # ModelsController - Compare different models
-GET http://localhost:8080/rag/models?message=Compare the context windows of GPT-4 and Claude models
+GET http://localhost:8080/rag/models?message=Compare the context windows of GPT-6 and Claude models
 
 ###
 
