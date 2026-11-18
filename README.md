@@ -50,7 +50,7 @@ curl "localhost:8080/router?message=What is the capital of Ohio"
 | `talks` | Lab 2: a prompt template, a system message, and structured output together in one endpoint | `POST /talks/review` |
 | `options` | Configuring model options ([README](src/main/java/dev/danvega/workshop/options/README.md)) | `/options` |
 | `memory` | Chat memory and stateful conversations | `/memory` |
-| `advisor` | Custom advisors, one per superpower: observe (token counting), transform (PII masking), short-circuit (on-topic guard) | `/advisor`, `/pii-masking`, `/support` |
+| `advisor` | The built-in `SimpleLoggerAdvisor`, then custom advisors, one per superpower: observe (token counting), transform (PII masking), short-circuit (on-topic guard) | `/advisor/logging`, `/advisor`, `/pii-masking`, `/support` |
 | `async` | Streaming responses | `/stream` |
 | `multimodal` | Image to text, image generation, text to speech | `/image-to-text`, `/generate-image`, `/speak` |
 | `byod` | Bring your own data by stuffing the prompt | `/models`, `/models/stuff-the-prompt` |

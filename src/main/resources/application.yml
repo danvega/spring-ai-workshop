@@ -15,6 +15,8 @@ spring:
 logging:
   level:
     dev.danvega.workshop: DEBUG
+    # SimpleLoggerAdvisor logs at DEBUG (see /advisor/logging)
+    org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor: DEBUG
 
 # Model router demo (router package). The Jev starter reads TYPESAFE_API_KEY.
 router:

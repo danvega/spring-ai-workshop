@@ -231,6 +231,11 @@ GET http://localhost:8080/advisor
 
 ###
 
+### Built-in Logger
+# LoggingController - SimpleLoggerAdvisor logs the full request and response at DEBUG. Watch the console.
+GET http://localhost:8080/advisor/logging
+
+###
 # ============================================================================
 # 9. MODEL CONFIGURATION & OPTIONS
 # ============================================================================
