@@ -46,7 +46,7 @@ curl "localhost:8080/router?message=What is the capital of Ohio"
 | `chat` | ChatClient basics, `.content()` vs `.chatResponse()` | `/`, `/jokes-by-topic`, `/jokes-with-response` |
 | `chatmodel` | ChatModel API, usage metadata, and n=3 generations on a self-built Completions model | `/chat-model/fact`, `/chat-model/taglines` |
 | `prompt` | Prompt templates loaded from resources | `/posts/new` |
-| `output` | Structured output into Java records | `/vacation/structured`, `/vacation/unstructured` |
+| `output` | Structured output into Java records, plus two Spring AI 2 options: provider structured output and schema validation with retries | `/vacation/structured`, `/vacation/unstructured`, `POST /output/ticket/provider`, `POST /output/ticket/validated` |
 | `talks` | Lab 2: a prompt template, a system message, and structured output together in one endpoint. Lab 3: a talk coach with chat memory, `SimpleLoggerAdvisor`, and a word count `@Tool` | `POST /talks/review`, `POST /talks/coach` |
 | `options` | Configuring model options ([README](src/main/java/dev/danvega/workshop/options/README.md)) | `/options` |
 | `memory` | Chat memory: short-term (the last messages of one conversation) and long-term (Markdown notes the model writes with `AutoMemoryTools`) ([README](src/main/java/dev/danvega/workshop/memory/README.md)) | `/memory`, `/memory/short-term/{id}`, `/memory/long-term/{userId}` |

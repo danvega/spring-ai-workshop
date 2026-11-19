@@ -107,6 +107,17 @@ GET http://localhost:8080/vacation/structured?destination=Tokyo, Japan
 
 ###
 
+### Structured output, new in 2: the provider enforces the schema
+# SupportTicketController. No body uses the sample email, or send your own as text/plain.
+POST http://localhost:8080/output/ticket/provider
+
+###
+
+### Structured output, new in 2: validate the JSON and retry on failure
+POST http://localhost:8080/output/ticket/validated
+
+###
+
 ### Talk Reviewer (Lab 2)
 # TalkReviewController - Prompt template + system message + structured output
 POST http://localhost:8080/talks/review
